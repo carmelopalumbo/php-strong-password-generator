@@ -4,7 +4,7 @@ $charrepeat = $_GET['same_chars'] ?? '';
 $charincludes = $_GET['characters'] ?? '';
 $pwlength = $_GET['pw_length'] ?? '';
 
-
+//session per pagina di output passowrd
 if ($pwlength >= 8 && $pwlength <= 32) {
     session_start();
     $_SESSION['charincludes'] = $charincludes;
@@ -15,8 +15,11 @@ if ($pwlength >= 8 && $pwlength <= 32) {
 
 function getRandomPW($length, $includechar, $norepeat)
 {
+    //numeri e char speciali disponibili
     $numbers = str_split('0123456789');
     $specials = str_split('!@#$%^&*()');
+
+    //controllo per generazione caratteri disponibili in base alle checkbox
     if (in_array("numbers", $includechar) && in_array("letters", $includechar) && in_array("specialchars", $includechar)) {
         $chars = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '0123456789!@#$%^&*()');
     } elseif ((in_array("letters", $includechar) && in_array("specialchars", $includechar))) {
@@ -32,6 +35,8 @@ function getRandomPW($length, $includechar, $norepeat)
     $randompw = '';
 
     if ($norepeat) {
+
+        // checkloop per numeri e caratteri speciali
         if ($chars === $numbers && $length >= 10) {
             return getDefaultPW($numbers);
         }
@@ -40,11 +45,13 @@ function getRandomPW($length, $includechar, $norepeat)
             return getDefaultPW($specials);
         }
 
+        //pw senza caratteri ripetuti
         while (strlen($randompw) < $length) {
             $temp = rand(0, count($chars) - 1);
             if (!str_contains($randompw, $chars[$temp])) $randompw .= $chars[$temp];
         }
     } else {
+        //pw con caratteri ripetuti
         while (strlen($randompw) < $length) {
             $temp = rand(0, count($chars) - 1);
             $randompw .= $chars[$temp];
@@ -53,6 +60,8 @@ function getRandomPW($length, $includechar, $norepeat)
     return str_shuffle($randompw);
 }
 
+
+//genera pw di default per evitare il loop
 function getDefaultPW($arr)
 {
     $randomdefault = '';

@@ -75,6 +75,8 @@ require_once __DIR__ . '/functions.php';
 
             </form>
         </div>
+
+        <!-- avviso se viene inserito un numero non valido -->
         <?php if (!empty($pwlength)) : ?>
             <div class="row py-4">
                 <div class="col">
