@@ -1,24 +1,7 @@
 <?php
 
-$charrepeat = $_GET['same_chars'] ?? '';
-$charincludes = $_GET['characters'] ?? '';
-$pwlength = $_GET['pw_length'] ?? '';
+require_once __DIR__ . '/functions.php';
 
-if (!empty($pwlength)) {
-    getRandomPW($pwlength);
-}
-
-function getRandomPW($length)
-{
-
-    $chars = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '0123456789!@#$%^&*()');
-
-    $randompw = '';
-
-    foreach (array_rand($chars, $length) as $key) $randompw .= $chars[$key];
-
-    var_dump($randompw);
-}
 ?>
 
 
@@ -40,7 +23,7 @@ function getRandomPW($length)
 
 <body>
     <h1 class="py-5">STRONG PASSWORD GENERATOR</h1>
-    <div class="container cp-container">
+    <div class="container cp-container flex-column py-5">
         <div class="row d-flex flex-column justify-content-center">
             <form action="./index.php" method="GET">
 
@@ -92,7 +75,22 @@ function getRandomPW($length)
 
             </form>
         </div>
-    </div>
+
+        <?php if (!empty($pwlength)) : ?>
+            <?php if ($pwlength >= 8 && $pwlength <= 32) : ?>
+                <div class="row py-4">
+                    <div class="col">
+                        <h2>PASSWORD: <?php echo getRandomPW($pwlength) ?></h2>
+                    </div>
+                <?php else : ?>
+                    <div class="row py-4">
+                        <div class="col">
+                            <h2>INSERISCI NUMERO COMPRESO TRA 8 E 32!</h2>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+                </div>
     </div>
 </body>
 
