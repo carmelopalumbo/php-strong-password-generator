@@ -33,13 +33,11 @@ function getRandomPW($length, $includechar, $norepeat)
 
     if ($norepeat) {
         if ($chars === $numbers && $length >= 10) {
-            $randompw = implode("", $chars);
-            return str_shuffle($randompw);
+            return getDefaultPW($numbers);
         }
 
         if ($chars === $specials && $length >= 10) {
-            $randompw = implode("", $specials);
-            return str_shuffle($randompw);
+            return getDefaultPW($specials);
         }
 
         while (strlen($randompw) < $length) {
@@ -53,4 +51,11 @@ function getRandomPW($length, $includechar, $norepeat)
         }
     }
     return str_shuffle($randompw);
+}
+
+function getDefaultPW($arr)
+{
+    $randomdefault = '';
+    $randomdefault = implode("", $arr);
+    return str_shuffle($randomdefault);
 }
