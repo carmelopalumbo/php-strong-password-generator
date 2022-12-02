@@ -25,7 +25,7 @@ require_once __DIR__ . '/functions.php';
     <h1 class="py-5">STRONG PASSWORD GENERATOR</h1>
     <div class="container cp-container flex-column py-5">
         <div class="row d-flex flex-column justify-content-center">
-            <form action="./index.php" method="GET">
+            <form action="index.php" method="GET">
 
                 <div class="col">
 
@@ -75,22 +75,13 @@ require_once __DIR__ . '/functions.php';
 
             </form>
         </div>
-
         <?php if (!empty($pwlength)) : ?>
-            <?php if ($pwlength >= 8 && $pwlength <= 32) : ?>
-                <div class="row py-4">
-                    <div class="col">
-                        <h2>PASSWORD: <?php echo getRandomPW($pwlength) ?></h2>
-                    </div>
-                <?php else : ?>
-                    <div class="row py-4">
-                        <div class="col">
-                            <h2>INSERISCI NUMERO COMPRESO TRA 8 E 32!</h2>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            <?php endif; ?>
+            <div class="row py-4">
+                <div class="col">
+                    <h2>INSERISCI NUMERO COMPRESO TRA 8 E 32!</h2>
                 </div>
+            </div>
+        <?php endif; ?>
     </div>
 </body>
 
