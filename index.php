@@ -1,13 +1,24 @@
 <?php
 
-
-$pwlength = $_GET['pw_length'] ?? '';
 $charrepeat = $_GET['same_chars'] ?? '';
 $charincludes = $_GET['characters'] ?? '';
+$pwlength = $_GET['pw_length'] ?? '';
 
-var_dump($pwlength);
-var_dump($charrepeat);
-var_dump($charincludes);
+if (!empty($pwlength)) {
+    getRandomPW($pwlength);
+}
+
+function getRandomPW($length)
+{
+
+    $chars = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '0123456789!@#$%^&*()');
+
+    $randompw = '';
+
+    foreach (array_rand($chars, $length) as $key) $randompw .= $chars[$key];
+
+    var_dump($randompw);
+}
 ?>
 
 
