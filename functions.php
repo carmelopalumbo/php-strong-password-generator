@@ -15,6 +15,8 @@ if ($pwlength >= 8 && $pwlength <= 32) {
 
 function getRandomPW($length, $includechar, $norepeat)
 {
+    $numbers = str_split('0123456789');
+    $specials = str_split('!@#$%^&*()');
     if (in_array("numbers", $includechar) && in_array("letters", $includechar) && in_array("specialchars", $includechar)) {
         $chars = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '0123456789!@#$%^&*()');
     } elseif ((in_array("letters", $includechar) && in_array("specialchars", $includechar))) {
@@ -27,11 +29,19 @@ function getRandomPW($length, $includechar, $norepeat)
         $chars = str_split('0123456789');
     }
 
-    shuffle($chars);
-
     $randompw = '';
 
     if ($norepeat) {
+        if ($chars === $numbers && $length >= 10) {
+            $randompw = implode("", $chars);
+            return str_shuffle($randompw);
+        }
+
+        if ($chars === $specials && $length >= 10) {
+            $randompw = implode("", $specials);
+            return str_shuffle($randompw);
+        }
+
         while (strlen($randompw) < $length) {
             $temp = rand(0, count($chars) - 1);
             if (!str_contains($randompw, $chars[$temp])) $randompw .= $chars[$temp];
@@ -42,5 +52,5 @@ function getRandomPW($length, $includechar, $norepeat)
             $randompw .= $chars[$temp];
         }
     }
-    return $randompw;
+    return str_shuffle($randompw);
 }
