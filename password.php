@@ -31,7 +31,8 @@ session_start();
                 <p class="py-2 nb text-danger">NB: NON CONDIVIDERLA CON NESSUNO!</p>
             </div>
         </div>
-
+    </div>
+    <?php session_unset(); ?>
 </body>
 
 </html>
