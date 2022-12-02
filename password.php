@@ -26,7 +26,7 @@ session_start();
     <div class="container cp-container">
         <div class="row py-4">
             <div class="col">
-                <h2>PASSWORD: <?php echo getRandomPW($_SESSION['pwlength'], $_SESSION['charincludes']) ?></h2>
+                <h2>PASSWORD: <?php echo getRandomPW($_SESSION['pwlength'], $_SESSION['charincludes'], $_SESSION['norepeat']) ?></h2>
             </div>
         </div>
 

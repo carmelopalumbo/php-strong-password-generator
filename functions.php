@@ -9,10 +9,11 @@ if ($pwlength >= 8 && $pwlength <= 32) {
     session_start();
     $_SESSION['charincludes'] = $charincludes;
     $_SESSION['pwlength'] = $pwlength;
+    $_SESSION['norepeat'] = $charrepeat;
     header('Location: ./password.php');
 }
 
-function getRandomPW($length, $includechar)
+function getRandomPW($length, $includechar, $norepeat)
 {
     if (in_array("numbers", $includechar) && in_array("letters", $includechar) && in_array("specialchars", $includechar)) {
         $chars = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '0123456789!@#$%^&*()');
@@ -26,10 +27,20 @@ function getRandomPW($length, $includechar)
         $chars = str_split('0123456789');
     }
 
+    shuffle($chars);
 
     $randompw = '';
 
-    foreach (array_rand($chars, $length) as $key) $randompw .= $chars[$key];
-
+    if ($norepeat) {
+        while (strlen($randompw) < $length) {
+            $temp = rand(0, count($chars) - 1);
+            if (!str_contains($randompw, $chars[$temp])) $randompw .= $chars[$temp];
+        }
+    } else {
+        while (strlen($randompw) < $length) {
+            $temp = rand(0, count($chars) - 1);
+            $randompw .= $chars[$temp];
+        }
+    }
     return $randompw;
 }
