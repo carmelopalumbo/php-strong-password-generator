@@ -18,19 +18,29 @@ function getRandomPW($length, $includechar, $norepeat)
     //numeri e char speciali disponibili
     $numbers = str_split('0123456789');
     $specials = str_split('!@#$%^&*()');
+    $lowerletters = str_split('abcdefghijklmnopqrstuvwxyz');
+    $upperletters = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    $chars = [];
 
-    //controllo per generazione caratteri disponibili in base alle checkbox
-    if (in_array("numbers", $includechar) && in_array("letters", $includechar) && in_array("specialchars", $includechar)) {
-        $chars = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '0123456789!@#$%^&*()');
-    } elseif ((in_array("letters", $includechar) && in_array("specialchars", $includechar))) {
-        $chars = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '!@#$%^&*()');
-    } elseif ((in_array("letters", $includechar))) {
-        $chars = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-    } elseif (in_array("specialchars", $includechar)) {
-        $chars = str_split('!@#$%^&*()');
-    } elseif (in_array("numbers", $includechar)) {
-        $chars = str_split('0123456789');
+
+    //deselezionando tutte le checkbox, include tutti i caratteri
+    if (empty($includechar)) {
+        $chars = array_merge($numbers, $lowerletters, $upperletters, $specials);
+    } else {
+        //controllo per generazione caratteri disponibili in base alle checkbox
+        if (in_array("numbers", $includechar)) {
+            $chars = array_merge($chars, $numbers);
+        }
+
+        if (in_array("specialchars", $includechar)) {
+            $chars = array_merge($chars, $specials);
+        }
+
+        if (in_array("letters", $includechar)) {
+            $chars = array_merge($chars, $lowerletters, $upperletters);
+        }
     }
+
 
     $randompw = '';
 
